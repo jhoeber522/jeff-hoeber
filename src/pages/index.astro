@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+---
+
+<Layout title="Jeff Hoeber — Portfolio">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="logo">jh</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-greeting">Hi, I'm</p>
+      <h1 class="hero-name">Jeff Hoeber</h1>
+      <p class="hero-tagline">Data Scientist. Turning data into decisions.</p>
+      <a href="#about" class="btn">About Me</a>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <h2 class="section-title">About</h2>
+      <div class="about-content">
+        <p>
+          I'm a Data Scientist passionate about driving impactful business
+          and product decisions through data.
+        </p>
+        <p>
+          I cut my teeth in the Audit field after college, where I learned
+          that quality matters, the devil is in the details, and no one
+          likes auditors.
+        </p>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-list">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Spotify</h3>
+            <span class="experience-date">2021 — Present</span>
+          </div>
+          <p class="experience-location">New York, NY</p>
+          <div class="experience-roles">
+            <p class="experience-role">Senior Data Scientist <span class="role-date">2025 — Present</span></p>
+            <p class="experience-role">Data Scientist <span class="role-date">2021 — 2025</span></p>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Vroom</h3>
+            <span class="experience-date">2020 — 2021</span>
+          </div>
+          <p class="experience-location">New York, NY</p>
+          <div class="experience-roles">
+            <p class="experience-role">Manager, Analytics & Strategy</p>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>1stdibs.com</h3>
+            <span class="experience-date">2018 — 2020</span>
+          </div>
+          <p class="experience-location">New York, NY</p>
+          <div class="experience-roles">
+            <p class="experience-role">Manager, Analytics <span class="role-date">2019 — 2020</span></p>
+            <p class="experience-role">Senior Analyst, Analytics <span class="role-date">2018 — 2019</span></p>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>PwC</h3>
+            <span class="experience-date">2013 — 2018</span>
+          </div>
+          <p class="experience-location">New York, NY</p>
+          <div class="experience-roles">
+            <p class="experience-role">Senior Associate, Advanced Risk & Compliance Analytics <span class="role-date">2017 — 2018</span></p>
+            <p class="experience-role">Senior Associate, Risk Assurance <span class="role-date">2015 — 2016</span></p>
+            <p class="experience-role">Experienced Associate, Risk Assurance <span class="role-date">2013 — 2015</span></p>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Grant Thornton LLP</h3>
+            <span class="experience-date">2012 — 2013</span>
+          </div>
+          <p class="experience-location">New York, NY</p>
+          <div class="experience-roles">
+            <p class="experience-role">Associate, Business Advisory Services</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+      <h2 class="section-title">Education</h2>
+      <div class="experience-list">
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Northwestern University</h3>
+            <span class="experience-date">2020 — 2023</span>
+          </div>
+          <p class="experience-role">MS, Data Science</p>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-header">
+            <h3>Lehigh University</h3>
+            <span class="experience-date">2008 — 2012</span>
+          </div>
+          <p class="experience-role">BS, Computer Science & Business</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <h2 class="section-title">Skills & Tools</h2>
+      <div class="skills-grid">
+        <span class="tag">SQL</span>
+        <span class="tag">Python</span>
+        <span class="tag">R</span>
+        <span class="tag">Tableau</span>
+        <span class="tag">Looker</span>
+        <span class="tag">Google Analytics</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Java</span>
+        <span class="tag">Claude</span>
+        <span class="tag">Cursor</span>
+        <span class="tag">Lucidchart</span>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <h2 class="section-title">Contact</h2>
+      <p class="contact-text">
+        Want to work together or just say hi? Drop me a message.
+      </p>
+      <a href="mailto:Jeff.Hoeber@gmail.com" class="btn">Say Hello</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Jeff Hoeber. Built with Astro.</p>
+  </footer>
+</Layout>
