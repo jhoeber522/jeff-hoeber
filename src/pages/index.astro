@@ -162,7 +162,7 @@ import '../styles/global.css';
       <p class="contact-text">
         Want to work together or just say hi? Drop me a message.
       </p>
-      <form action="https://formspree.io/f/xjgeaeev" method="POST" class="contact-form" onclick="gtag('event', 'cta_click', {button: 'contact_form'})">
+      <form action="https://formspree.io/f/xjgeaeev" method="POST" class="contact-form" onsubmit="gtag('event', 'form_submit', {form: 'contact'})">
         <input type="text" name="name" placeholder="Your name" required />
         <input type="email" name="email" placeholder="Your email" required />
         <textarea name="message" placeholder="Your message" rows="5" required></textarea>
@@ -199,7 +199,9 @@ import '../styles/global.css';
 
     toggle.addEventListener('click', () => {
       const current = html.getAttribute('data-theme') || 'dark';
-      setTheme(current === 'dark' ? 'light' : 'dark');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+      gtag('event', 'theme_toggle', {theme: newTheme});
     });
 
     // Set initial icon (theme is already applied by Layout)
