@@ -8,24 +8,25 @@ import '../styles/global.css';
     <div class="nav-inner">
       <a href="/" class="logo">jh</a>
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" onclick="gtag('event', 'nav_click', {link: 'about'})">About</a>
+        <a href="#experience" onclick="gtag('event', 'nav_click', {link: 'experience'})">Experience</a>
+        <a href="#contact" onclick="gtag('event', 'nav_click', {link: 'contact'})">Contact</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
       </div>
     </div>
   </nav>
 
   <main>
     <!-- Hero -->
-    <section class="hero">
+    <section class="hero fade-in">
       <p class="hero-greeting">Hi, I'm</p>
       <h1 class="hero-name">Jeff Hoeber</h1>
       <p class="hero-tagline">Data Scientist. Turning data into decisions.</p>
-      <a href="#about" class="btn">About Me</a>
+      <a href="#about" class="btn" onclick="gtag('event', 'cta_click', {button: 'about_me'})">About Me</a>
     </section>
 
     <!-- About -->
-    <section id="about" class="section">
+    <section id="about" class="section fade-in">
       <h2 class="section-title">About</h2>
       <div class="about-content">
         <p>
@@ -51,7 +52,7 @@ import '../styles/global.css';
     </section>
 
     <!-- Experience -->
-    <section id="experience" class="section">
+    <section id="experience" class="section fade-in">
       <h2 class="section-title">Experience</h2>
       <div class="experience-list">
         <div class="experience-card">
@@ -116,7 +117,7 @@ import '../styles/global.css';
     </section>
 
     <!-- Education -->
-    <section id="education" class="section">
+    <section id="education" class="section fade-in">
       <h2 class="section-title">Education</h2>
       <div class="experience-list">
         <div class="experience-card">
@@ -138,7 +139,7 @@ import '../styles/global.css';
     </section>
 
     <!-- Skills -->
-    <section id="skills" class="section">
+    <section id="skills" class="section fade-in">
       <h2 class="section-title">Skills & Tools</h2>
       <div class="skills-grid">
         <span class="tag">SQL</span>
@@ -156,16 +157,53 @@ import '../styles/global.css';
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="section">
+    <section id="contact" class="section fade-in">
       <h2 class="section-title">Contact</h2>
       <p class="contact-text">
         Want to work together or just say hi? Drop me a message.
       </p>
-      <a href="mailto:Jeff.Hoeber@gmail.com" class="btn">Say Hello</a>
+      <form action="https://formspree.io/f/xjgeaeev" method="POST" class="contact-form" onclick="gtag('event', 'cta_click', {button: 'contact_form'})">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <textarea name="message" placeholder="Your message" rows="5" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
     </section>
   </main>
 
   <footer class="footer">
     <p>&copy; 2026 Jeff Hoeber. Built with Astro.</p>
   </footer>
+  <script is:inline>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+    // Theme toggle
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Set initial icon (theme is already applied by Layout)
+    const theme = html.getAttribute('data-theme') || 'dark';
+    toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+  </script>
 </Layout>
