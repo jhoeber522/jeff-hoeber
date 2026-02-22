@@ -182,14 +182,14 @@ try {
       {blogPosts.length > 0 ? (
         <div class="blog-grid">
           {blogPosts.map((post) => (
-            <a href={`/jeff-hoeber/blog/${post.slug}`} class="blog-card">
+            <a href={`/blog/${post.slug}`} class="blog-card">
               <span class="blog-date">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
               <h3>{post.title}</h3>
               <p>{post.excerpt}</p>
             </a>
           ))}
         </div>
-        <a href="/jeff-hoeber/blog" class="btn blog-view-all">View All Posts</a>
+        <a href="/blog" class="btn blog-view-all">View All Posts</a>
       ) : (
         <p class="contact-text">Blog posts coming soon. Check back later!</p>
       )}

@@ -21,7 +21,7 @@ const { slug } = Astro.params;
 const post = await getBlogPost(slug as string);
 
 if (!post) {
-  return Astro.redirect('/jeff-hoeber/blog');
+  return Astro.redirect('/blog');
 }
 
 const htmlContent = documentToHtmlString(post.body);
@@ -35,10 +35,10 @@ const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
 <Layout title={`${post.title} — Jeff Hoeber`}>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/jeff-hoeber/" class="logo">jh</a>
+      <a href="/" class="logo">jh</a>
       <div class="nav-links">
-        <a href="/jeff-hoeber/">Home</a>
-        <a href="/jeff-hoeber/blog">Blog</a>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
       </div>
     </div>
@@ -46,7 +46,7 @@ const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
 
   <main>
     <article class="section post-page">
-      <a href="/jeff-hoeber/blog" class="back-link">&larr; Back to Blog</a>
+      <a href="/blog" class="back-link">&larr; Back to Blog</a>
       <h1 class="post-title">{post.title}</h1>
       <time class="post-date">{formattedDate}</time>
       <div class="post-body" set:html={htmlContent} />
