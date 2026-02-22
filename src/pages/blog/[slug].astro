@@ -1,0 +1,75 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+import { getBlogPosts, getBlogPost } from '../../lib/contentful';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
+export async function getStaticPaths() {
+  let posts: any[] = [];
+  try {
+    posts = await getBlogPosts();
+  } catch (e) {
+    return [];
+  }
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await getBlogPost(slug as string);
+
+if (!post) {
+  return Astro.redirect('/jeff-hoeber/blog');
+}
+
+const htmlContent = documentToHtmlString(post.body);
+const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={`${post.title} — Jeff Hoeber`}>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/jeff-hoeber/" class="logo">jh</a>
+      <div class="nav-links">
+        <a href="/jeff-hoeber/">Home</a>
+        <a href="/jeff-hoeber/blog">Blog</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <article class="section post-page">
+      <a href="/jeff-hoeber/blog" class="back-link">&larr; Back to Blog</a>
+      <h1 class="post-title">{post.title}</h1>
+      <time class="post-date">{formattedDate}</time>
+      <div class="post-body" set:html={htmlContent} />
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Jeff Hoeber. Built with Astro.</p>
+  </footer>
+
+  <script is:inline>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+    }
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    const theme = html.getAttribute('data-theme') || 'dark';
+    toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+  </script>
+</Layout>

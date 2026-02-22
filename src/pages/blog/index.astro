@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+import { getBlogPosts } from '../../lib/contentful';
+
+let blogPosts: any[] = [];
+try {
+  blogPosts = await getBlogPosts();
+} catch (e) {
+  // Contentful not configured yet
+}
+---
+
+<Layout title="Blog — Jeff Hoeber">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/jeff-hoeber/" class="logo">jh</a>
+      <div class="nav-links">
+        <a href="/jeff-hoeber/">Home</a>
+        <a href="/jeff-hoeber/blog" class="active">Blog</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section blog-page">
+      <h1 class="page-title">Blog</h1>
+      {blogPosts.length > 0 ? (
+        <div class="blog-grid">
+          {blogPosts.map((post) => (
+            <a href={`/jeff-hoeber/blog/${post.slug}`} class="blog-card">
+              <span class="blog-date">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="contact-text">No posts yet. Check back soon!</p>
+      )}
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Jeff Hoeber. Built with Astro.</p>
+  </footer>
+
+  <script is:inline>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+    }
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    const theme = html.getAttribute('data-theme') || 'dark';
+    toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+  </script>
+</Layout>

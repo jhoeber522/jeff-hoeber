@@ -1,6 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
+import { getBlogPosts } from '../lib/contentful';
+
+let blogPosts: any[] = [];
+try {
+  const allPosts = await getBlogPosts();
+  blogPosts = allPosts.slice(0, 3);
+} catch (e) {
+  // Contentful not configured yet — show empty blog section
+}
 ---
 
 <Layout title="Jeff Hoeber — Portfolio">
@@ -10,6 +19,7 @@ import '../styles/global.css';
       <div class="nav-links">
         <a href="#about" onclick="gtag('event', 'nav_click', {link: 'about'})">About</a>
         <a href="#experience" onclick="gtag('event', 'nav_click', {link: 'experience'})">Experience</a>
+        <a href="#blog" onclick="gtag('event', 'nav_click', {link: 'blog'})">Blog</a>
         <a href="#contact" onclick="gtag('event', 'nav_click', {link: 'contact'})">Contact</a>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
       </div>
@@ -34,19 +44,29 @@ import '../styles/global.css';
           product and business decisions.
         </p>
         <p>
-          Today, I partner closely with product and business teams to design
-          experiments, size opportunities, and ship data-informed features
-          that drive growth. My work sits at the intersection of rigorous
-          analysis and pragmatic decision-making.
+          I partner closely with product and business teams to design,
+          test, and ship features grounded in data-driven insights. My
+          work sits at the intersection of rigorous analysis and pragmatic
+          decision-making - combining statistical depth with a strong bias
+          toward action.
         </p>
         <p>
-          Earlier in my career, I started in audit, where I learned that
-          quality matters and the devil is in the details. One late night
-          during busy season, while digging through a massive SAP data dump
-          for a vendor fraud analysis, something clicked - I realized I
-          didn't just want to use data to uncover what went wrong; I wanted
-          to use it to help teams see what could go right. I've been
-          deepening my craft in data science ever since.
+          Before transitioning into Data Science, I began my career in
+          audit, where I developed a deep appreciation for quality,
+          precision, and attention to detail. While audit sharpened my
+          ability to identify risks and uncover issues, I realized I
+          wanted to use data not only to surface problems, but to drive
+          solutions and create measurable impact.
+        </p>
+        <p>
+          Today, I apply that same analytical rigor with a
+          solutions-oriented mindset - helping teams move from insight to
+          execution.
+        </p>
+        <p>
+          I hope you enjoy exploring my site and learning more about my
+          journey. If I can be of help, feel free to connect with me
+          through the contact section.
         </p>
       </div>
     </section>
@@ -154,6 +174,25 @@ import '../styles/global.css';
         <span class="tag">Cursor</span>
         <span class="tag">Lucidchart</span>
       </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="section fade-in">
+      <h2 class="section-title">Blog</h2>
+      {blogPosts.length > 0 ? (
+        <div class="blog-grid">
+          {blogPosts.map((post) => (
+            <a href={`/jeff-hoeber/blog/${post.slug}`} class="blog-card">
+              <span class="blog-date">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+              <h3>{post.title}</h3>
+              <p>{post.excerpt}</p>
+            </a>
+          ))}
+        </div>
+        <a href="/jeff-hoeber/blog" class="btn blog-view-all">View All Posts</a>
+      ) : (
+        <p class="contact-text">Blog posts coming soon. Check back later!</p>
+      )}
     </section>
 
     <!-- Contact -->

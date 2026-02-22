@@ -5,4 +5,7 @@ export default defineConfig({
   site: 'https://jhoeber522.github.io',
   base: '/jeff-hoeber',
   integrations: [sitemap()],
+  vite: {
+    envPrefix: 'CONTENTFUL_',
+  },
 });
