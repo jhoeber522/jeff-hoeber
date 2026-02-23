@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css';
+---
+
+<Layout title="404 — Jeff Hoeber">
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="logo">jh</a>
+      <div class="nav-links">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="not-found">
+    <p class="not-found-code">404</p>
+    <h1 class="not-found-title">Page not found</h1>
+    <p class="not-found-text">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="/" class="btn">Back to Home</a>
+  </main>
+
+  <script is:inline>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+    }
+
+    toggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme') || 'dark';
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+
+    const theme = html.getAttribute('data-theme') || 'dark';
+    toggle.textContent = theme === 'light' ? '\u263E' : '\u2600';
+  </script>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .not-found-code {
+    font-family: var(--mono);
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .not-found-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .not-found-text {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    max-width: 400px;
+  }
+</style>
