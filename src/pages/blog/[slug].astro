@@ -32,7 +32,7 @@ const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
 });
 ---
 
-<Layout title={`${post.title} — Jeff Hoeber`}>
+<Layout title={`${post.title} — Jeff Hoeber`} description={post.excerpt}>
   <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="logo">jh</a>
